@@ -14,7 +14,7 @@ type ImagePaths {
 
 type Image {
     aspect_ratio: Int
-    file_path: ImagePaths
+    file_path: ImagePath
     height: Int
     iso_639_1: String
     vote_average: Int

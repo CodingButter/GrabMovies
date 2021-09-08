@@ -7,7 +7,7 @@ type MediaList {
   }
   type Media {
     adult: Boolean
-    backdrop: ImagePaths
+    backdrop: ImagePath
     belongs_to_collection: Collection
     budget: Int
     genre: [Genre]
@@ -19,7 +19,7 @@ type MediaList {
     original_title: String
     overview: String
     popularity: Float
-    poster: ImagePaths
+    poster: ImagePath
     production_companies: [ProductionCompany]
     production_countries: [Country]
     release_date: String
