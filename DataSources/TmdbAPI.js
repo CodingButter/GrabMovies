@@ -68,7 +68,7 @@ class TmdbAPI extends MyDataSource {
   _normalize(result) {
     if (Array.isArray(result)) return result.map((res) => this._normalize(res));
     result.title = result.title || result.name;
-    var dateSplit;
+    var dateSplit = [null];
     if (result.release_date) dateSplit = result.release_date.split("-");
     else if (result.first_air_date)
       dateSplit = result.first_air_date.split("-");
