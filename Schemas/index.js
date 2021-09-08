@@ -1,6 +1,6 @@
 const { gql } = require("apollo-server-express");
 const convert = require("graphql-to-json-converter");
-const Episode = require("./Epsidoe");
+const Episode = require("./Epsiode");
 const Image = require("./Image");
 const Media = require("./Media");
 const Person = require("./Person");
