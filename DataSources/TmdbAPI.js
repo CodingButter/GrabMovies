@@ -68,8 +68,9 @@ class TmdbAPI extends MyDataSource {
   _normalize(result) {
     if (Array.isArray(result)) return result.map((res) => this._normalize(res));
     result.title = result.title || result.name;
-    const dateSplit =
-      result.release_date.split("-") || result.first_air_date.split("-");
+    const dateSplit = result.release_date
+      ? result.release_date.split("-")
+      : result.first_air_date.split("-");
     result.year = dateSplit[0] || null;
     result.media_type = result.first_air_date ? "tv" : "movie";
     if (result.seasons) {
