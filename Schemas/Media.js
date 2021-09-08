@@ -51,7 +51,7 @@ type MediaList {
     images: ImageSet
     videos: [Video]
     torrents(min_quality: String, min_seed: Int, languages: String): [Torrent]
-    Seasons:[Season]
-    Staring: [Person]
+    seasons:[Season]
+    staring: [Person]
     alternative_titles: [AlternativeTitle]
   }`;
