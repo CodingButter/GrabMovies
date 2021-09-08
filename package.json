@@ -1,6 +1,6 @@
 {
   "name": "grap-movies-schema",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "the schema for a graphql media datail api",
   "main": "index.js",
   "scripts": {
@@ -8,6 +8,16 @@
   },
   "author": "CodingButter",
   "license": "ISC",
+  "keywords": [
+    "gql",
+    "apollo",
+    "tmdb",
+    "omdb",
+    "torrents",
+    "torrent-search",
+    "movies",
+    "tv"
+  ],
   "dependencies": {
     "apollo-datasource-rest": "^3.2.0",
     "torrent-search-api": "^2.1.4"
