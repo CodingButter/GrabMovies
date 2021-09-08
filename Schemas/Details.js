@@ -22,6 +22,11 @@ type Genre {
     name: String
 }
 
+type Language {
+    iso_3166_1: String
+    name: String
+}
+
 type ProductionCompany {
     id: Int
     logo_path: String

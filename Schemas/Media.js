@@ -30,16 +30,16 @@ type MediaList {
     tagline: String
     title: String
     video: Boolean
-    vote_average: Float #added
-    vote_count: Int #added
-    #start of extra data
-    year: Int #added
-    rated: String #added
+    vote_average: Float 
+    vote_count: Int
+  
+    year: Int
+    rated: String
     directors: [Person]
     writers: [Person]
     cast: [Person]
     plot: String
-    country: String
+    country: Country
     awards: [String]
     metascore: Int
     imdbRating: Float
@@ -51,10 +51,7 @@ type MediaList {
     images: ImageSet
     videos: [Video]
     torrents(min_quality: String, min_seed: Int, languages: String): [Torrent]
-    Seasons:[Media]
+    Seasons:[Season]
     Staring: [Person]
-    stream_sites: [String]
-    stream_urls: [String]
-    stream_sources: [StreamSource]
     alternative_titles: [AlternativeTitle]
   }`;
