@@ -5,7 +5,7 @@ type ImageSet {
     posters: [Image]
 }
 
-type ImagePaths {
+type ImagePath {
     small: String
     medium: String
     large: String
