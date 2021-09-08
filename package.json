@@ -1,6 +1,6 @@
 {
   "name": "grap-movies-schema",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "the schema for a graphql media datail api",
   "main": "index.js",
   "scripts": {
