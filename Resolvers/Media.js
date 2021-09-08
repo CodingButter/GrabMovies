@@ -1,4 +1,4 @@
-const { jsonDefs } = require("../Shcema/index.js");
+const { jsonDefs } = require("../Schemas");
 
 const mediaResolver = {};
 Object.keys(jsonDefs.type.Media).forEach((key) => {

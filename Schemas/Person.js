@@ -1,4 +1,4 @@
-modulex.export = `type Person {
+module.exports = `type Person {
     id: Int
     name: String
     birdthday: String

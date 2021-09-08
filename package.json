@@ -1,10 +1,10 @@
 {
   "name": "grab-movies-gql-schema",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "the schema for a graphql media datail api",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test.js",
     "commitpublish": "git add --all && git commit -m \"simple update\" && npm publish"
   },
   "repository": {
@@ -26,6 +26,8 @@
   "dependencies": {
     "apollo-datasource-rest": "^3.2.0",
     "apollo-server-express": "^3.3.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.3",
     "graphql-to-json-converter": "^1.2.0",
     "similarity": "^1.2.1",
     "torrent-search-api": "^2.1.4"
