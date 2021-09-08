@@ -57,6 +57,7 @@ const typeDefinition = `
     images: ImageSet
     videos: [Video]
     torrents(min_quality: String, min_seed: Int, languages: String): [Torrent]
+    Seasons:[Media]
     Staring: [Person]
     stream_sites: [String]
     stream_urls: [String]
