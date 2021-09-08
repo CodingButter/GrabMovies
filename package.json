@@ -24,6 +24,8 @@
   ],
   "dependencies": {
     "apollo-datasource-rest": "^3.2.0",
+    "apollo-server-express": "^3.3.0",
+    "graphql-to-json-converter": "^1.2.0",
     "torrent-search-api": "^2.1.4"
   }
 }
