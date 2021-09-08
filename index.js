@@ -1,5 +1,5 @@
 module.exports = (config) => [
-  require("./Schema").typeDefs,
+  require("./Schemas").typeDefs,
   require("./Resolvers"),
   require("./DataSources")(config),
 ];
