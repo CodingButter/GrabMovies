@@ -1,12 +1,15 @@
 {
   "name": "grab-movies-gql-schema",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "the schema for a graphql media datail api",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "github": "https://github.com/CodingButter/grab-movies-gql-schema",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodingButter/grab-movies-gql-schema.git"
+  },
   "author": "CodingButter",
   "license": "ISC",
   "keywords": [
