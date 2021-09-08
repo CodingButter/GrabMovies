@@ -1,4 +1,4 @@
-const { jsonDefs } = require("./Schema");
+const { jsonDefs } = require("../Shcema/index.js");
 
 const mediaResolver = {};
 Object.keys(jsonDefs.type.Media).forEach((key) => {
@@ -48,7 +48,7 @@ const tediumResolvers = {
   poster: async ({ poster_path }, params, { dataSources }) => {
     return await dataSources.TmdbAPI.getImageSizes(poster_path, "poster");
   },
-
+  seasons: async ({ seasons }, params, { dataSoruces }) => {},
   torrents: async (root, params, { dataSources }) => {
     var definition = {
       media_type: root.media_type,
@@ -78,41 +78,7 @@ const tediumResolvers = {
   },
 };
 
-const resolvers = {
-  Query: {
-    media: async (
-      root,
-      { media_type = "movie", id, title, year, imdb_id },
-      { dataSources }
-    ) => {
-      if (id) return await dataSources.TmdbAPI.getMediaById(id, media_type);
-      else if (imdb_id)
-        return await dataSources.TmdbAPI.getMediaByIMDBID(imdb_id, media_type);
-      else if (title && year)
-        return await dataSources.TmdbAPI.getMediaByTitleYear(
-          title,
-          year,
-          media_type
-        );
-      else if (title)
-        return await dataSources.TmdbAPI.getMediaByTitle(title, media_type);
-    },
-    mediaList: async (root, { search, media_type, page }, { dataSources }) => {
-      return await dataSources.TmdbAPI.searchMedia(search, media_type, page);
-    },
-    //Returns the current popular movies from https://movies.stevenlu.com/
-    // popular: async (root, { media_type = "movie" }, { dataSources }) => {
-    //   const pop_movies = await dataSources.PopularAPI.getMostPopular({}).then(
-    //     (movies) => {
-    //       return movies.map(({ imdb_id }) => {
-    //         return dataSources.TmdbAPI.getMediaById(imdb_id, media_type);
-    //       });
-    //     }
-    //   );
-    //   return pop_movies;
-    // },
-  },
-
+module.exports = {
   MediaList: {
     page: async ({ page }) => {
       return page;
@@ -130,4 +96,3 @@ const resolvers = {
 
   Media: Object.assign(mediaResolver, tediumResolvers),
 };
-module.exports = resolvers;
