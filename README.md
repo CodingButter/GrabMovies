@@ -51,3 +51,7 @@ console.log(`🚀  Server ready at ${resp.url}`);
 });
 
 ```
+
+refer to the playground for the docs and schema
+
+###Enjoy
