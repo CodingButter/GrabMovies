@@ -1,6 +1,6 @@
 {
   "name": "grab-movies-gql-schema",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "the schema for a graphql media datail api",
   "main": "index.js",
   "scripts": {
