@@ -1,0 +1,17 @@
+{
+  "omdb": {
+    "base": "http://www.omdbapi.com/",
+    "key_name": "apikey",
+    "key_value": ""
+  },
+  "tmdb": {
+    "base": "https://api.themoviedb.org/3/",
+    "key_name": "api_key",
+    "key_value": ""
+  },
+  "yft": {
+    "base": "https://yts.ms/",
+    "key_name": "",
+    "key_value": ""
+  }
+}

@@ -44,11 +44,35 @@ const tediumResolvers = {
     }
     return media.imdb_id;
   },
+  language: async (
+    { imdb_id, title, year, language },
+    params,
+    { dataSources }
+  ) => {
+    if (language) return language.split(",");
+    const media = dataSources.OmdbAPI.getMedia({ imdb_id, title, year });
+    return media.language.split(",");
+  },
+  plot: async ({ imdb_id, title, year, plot }, params, { dataSources }) => {
+    if (plot) return plot;
+    const media = await dataSources.OmdbAPI.get({ title, year, imdb_id });
+    return media.plot;
+  },
 
   poster: async ({ poster_path }, params, { dataSources }) => {
     return await dataSources.TmdbAPI.getImageSizes(poster_path, "poster");
   },
-  seasons: async ({ seasons }, params, { dataSoruces }) => {},
+  seasons: async ({ seasons }, params, { dataSources }) => {},
+  spoken_languages: async (
+    { id, spoken_languages },
+    params,
+    { dataSources }
+  ) => {
+    if (spoken_languages) return spoken_languages.map((lang) => lang.name);
+    const media = await dataSources.TmdbAPI.getMediaById(id);
+    return media.spoken_languages.map((lang) => lang.name);
+  },
+
   torrents: async (root, params, { dataSources }) => {
     var definition = {
       media_type: root.media_type,
@@ -65,15 +89,14 @@ const tediumResolvers = {
       );
       definition.imdb_id = media.imdb_id;
       if (!media.imdb_id) {
-        const omdb = await dataSources.OmdbAPI.getMovieByTitleYear(
-          root.title,
-          root.year
-        );
+        const omdb = await dataSources.OmdbAPI.getMedia({
+          title: root.title,
+          year: root.year,
+        });
         definition.imdb_id = omdb.imdbID;
       }
     }
     if (!definition.imdb_id || !definition.title || !definition.year) return [];
-    //console.log({ definition });
     return await dataSources.TorrentSearch.getTorrents(definition);
   },
 };

@@ -3,7 +3,7 @@ const similarity = require("similarity");
 const path = require("path");
 const providerFullPath = path.join(__dirname, "./providers/");
 TorrentSearchApi.loadProviders(providerFullPath);
-
+const qualityReg = /(?:[0-9][0-9][0-9]|[0-9][0-9][0-9][0-9])p/s;
 module.exports.getTorrents = async ({ media_type, imdb_id, title, year }) => {
   switch (media_type) {
     case "tv":
@@ -48,6 +48,9 @@ module.exports.searchShow = async (title, year) => {
       .map(async (result) => {
         if (result.magnet) return result;
         result.magnet = await TorrentSearchApi.getMagnet(result);
+        result.quality = result.title.match(qualityReg)[0];
+        if (result.quality) result.quality = result.quality.replace("p", "");
+        console.log(result.quality);
         return result;
       })
   );
@@ -76,7 +79,6 @@ module.exports.searchMovie = async (title, year, imdb_id) => {
     TorrentSearchApi.enableProvider("Eztv");
     TorrentSearchApi.enableProvider("Torrent9");
     TorrentSearchApi.enableProvider("TorrentProject");
-    //TorrentSearchApi.enableProvider("Limetorrents");
     TorrentSearchApi.enableProvider("Nyaa");
     TorrentSearchApi.enableProvider("TorrentDownload");
     var results = await TorrentSearchApi.search(query, ["ALL"], 500);
@@ -88,6 +90,8 @@ module.exports.searchMovie = async (title, year, imdb_id) => {
       })
       .map(async (result) => {
         result.magnet = await TorrentSearchApi.getMagnet(result);
+        result.quality = result.title.match(qualityReg)[0];
+        if (result.quality) result.quality = result.quality.replace("p", "");
         return result;
       })
   );

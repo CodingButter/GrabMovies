@@ -23,7 +23,6 @@ type Genre {
 }
 
 type Language {
-    iso_3166_1: String
     name: String
 }
 

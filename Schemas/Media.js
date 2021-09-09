@@ -14,6 +14,7 @@ type MediaList {
     homepage: String
     id: Int
     imdb_id: String
+    language: [String]
     media_type: String
     original_language: String
     original_title: String
@@ -25,7 +26,7 @@ type MediaList {
     release_date: String
     revenue: Int
     runtime: String
-    spoken_languages: [Language]
+    spoken_languages: [String]
     status: String
     tagline: String
     title: String
