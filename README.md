@@ -1,21 +1,13 @@
 # Grab Movies Schema
 
-### A Schema to add to your apollo server that gets movie and tv show data.
+### A graphql API for getting movie data
 
-## Requirements
+## Install Dependencies
 
-This can be added stand alone or merged with your current schemas
-refer to [Graphql-Tools Schema Mergin](https://www.graphql-tools.com/docs/schema-merging/)
-
-## Install
-
-### yarn
-
-    $ yarn add grab-movies
-
-### npm
-
-    $ npm install grab-movies
+```cli
+  $>yarn
+  $>npm install
+```
 
 ## Configure app
 
@@ -36,25 +28,10 @@ You will need to configure the various sources that are used here is the example
 }
 ```
 
-## Usage
+### Start Apollo Server
 
-```javascript
-const { ApolloServer } = require("apollo-server");
-const configs = require("./config.json");
-const [typeDefs, resolvers, dataSources] = require("grab-movies")(configs);
-
-//Make Sure to Merge Schemas if you have other Schemas for your server
-
-const server = new ApolloServer({
-  typeDefs,
-  resolvers,
-  dataSources,
-});
-
-// The `listen` method launches a web server.
-server.listen().then((resp) => {
-  console.log(`🚀  Server ready at ${resp.url}`);
-});
+```cli
+ $>yarn start
 ```
 
 refer to the playground for the docs and schema

@@ -1,6 +1,6 @@
 {
   "name": "grab-movies",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "the schema for a graphql media datail api",
   "main": "index.js",
   "scripts": {
