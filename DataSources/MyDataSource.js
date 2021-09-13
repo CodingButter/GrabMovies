@@ -6,7 +6,6 @@ class MyDataSource extends RESTDataSource {
     this.baseURL = base;
     this.api = { key_name, key_value };
   }
-
   async get(params, endpoint = "") {
     let str = endpoint;
     if (this.api.key_name.length > 0) {

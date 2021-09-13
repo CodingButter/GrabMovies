@@ -3,17 +3,17 @@ const convert = require("graphql-to-json-converter");
 const Details = require("./Details");
 const Episode = require("./Episode");
 const Image = require("./Image");
-const Media = require("./Media");
+const Movie = require("./Movie");
 const Person = require("./Person");
 const Season = require("./Season");
 const Torrent = require("./Torrent");
-const Query = require("./Query");
+const Query = require("./Queries");
 
 const typeDefinition = [
   Details,
   Episode,
   Image,
-  Media,
+  Movie,
   Person,
   Season,
   Torrent,

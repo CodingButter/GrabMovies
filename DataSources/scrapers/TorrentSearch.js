@@ -90,7 +90,10 @@ module.exports.searchMovie = async (title, year, imdb_id) => {
       })
       .map(async (result) => {
         result.magnet = await TorrentSearchApi.getMagnet(result);
-        result.quality = result.title.match(qualityReg)[0];
+        result.quality = result.title.match(qualityReg)
+          ? result.title.match(qualityReg)[0]
+          : null;
+
         if (result.quality) result.quality = result.quality.replace("p", "");
         return result;
       })

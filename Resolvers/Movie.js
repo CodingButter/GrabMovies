@@ -1,13 +1,11 @@
 const { jsonDefs } = require("../Schemas");
+const media_type = "movie";
 
-const mediaResolver = {};
-Object.keys(jsonDefs.type.Media).forEach((key) => {
-  mediaResolver[key] = async (root, params, { dataSources }) => {
+const movieResolver = {};
+Object.keys(jsonDefs.type.Movie).forEach((key) => {
+  movieResolver[key] = async (root, params, { dataSources }) => {
     if (root[key]) return root[key];
-    const media = await dataSources.TmdbAPI.getMediaById(
-      root.id,
-      root.media_type
-    );
+    const media = await dataSources.TmdbAPI.getMediaById(root.id, media_type);
     return media[key];
   };
 });
@@ -27,19 +25,12 @@ const tediumResolvers = {
     }
     return await dataSources.TmdbAPI.getImageSizes(backdrop_path, "backdrop");
   },
-  imdb_id: async (
-    { id, media_type, imdb_id, name, year },
-    params,
-    { dataSources }
-  ) => {
+  imdb_id: async ({ id, imdb_id, title, year }, params, { dataSources }) => {
     var media;
     if (imdb_id) return imdb_id;
     media = await dataSources.TmdbAPI.getMediaById(id, media_type);
-    if (!media.imdb) {
-      const { imdbID } = await dataSources.OmdbAPI.getMovieByTitleYear(
-        name,
-        year
-      );
+    if (!media.imdb_id) {
+      const { imdbID } = await dataSources.OmdbAPI.getMedia(title, year);
       return imdbID;
     }
     return media.imdb_id;
@@ -53,9 +44,12 @@ const tediumResolvers = {
     const media = dataSources.OmdbAPI.getMedia({ imdb_id, title, year });
     return media.language.split(",");
   },
+  media_type: () => {
+    return media_type;
+  },
   plot: async ({ imdb_id, title, year, plot }, params, { dataSources }) => {
     if (plot) return plot;
-    const media = await dataSources.OmdbAPI.get({ title, year, imdb_id });
+    const media = await dataSources.OmdbAPI.getMedia({ title, year, imdb_id });
     return media.plot;
   },
 
@@ -69,13 +63,13 @@ const tediumResolvers = {
     { dataSources }
   ) => {
     if (spoken_languages) return spoken_languages.map((lang) => lang.name);
-    const media = await dataSources.TmdbAPI.getMediaById(id);
+    const media = await dataSources.TmdbAPI.getMediaById(id, media_type);
     return media.spoken_languages.map((lang) => lang.name);
   },
 
   torrents: async (root, params, { dataSources }) => {
     var definition = {
-      media_type: root.media_type,
+      media_type: media_type,
       imdb_id: root.imdb_id,
       title: root.title,
       year: root.year,
@@ -83,10 +77,7 @@ const tediumResolvers = {
     if (root.imdb_id && root.title && root.year)
       return await dataSources.TorrentSearch.getTorrents(definition);
     if (!root.imdb_id) {
-      const media = await dataSources.TmdbAPI.getMediaById(
-        root.id,
-        root.media_type
-      );
+      const media = await dataSources.TmdbAPI.getMediaById(root.id, media_type);
       definition.imdb_id = media.imdb_id;
       if (!media.imdb_id) {
         const omdb = await dataSources.OmdbAPI.getMedia({
@@ -102,7 +93,7 @@ const tediumResolvers = {
 };
 
 module.exports = {
-  MediaList: {
+  MovieList: {
     page: async ({ page }) => {
       return page;
     },
@@ -115,7 +106,10 @@ module.exports = {
     total_pages: async ({ total_pages }) => {
       return total_pages;
     },
+    media_type: () => {
+      return media_type;
+    },
   },
 
-  Media: Object.assign(mediaResolver, tediumResolvers),
+  Movie: Object.assign(movieResolver, tediumResolvers),
 };

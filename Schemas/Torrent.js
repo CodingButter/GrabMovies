@@ -6,7 +6,7 @@ type Torrent {
   "Number of active peers"
   peers: Int
   "Size of the torrent contents"
-  size: Int
+  size: String
   "Torrent Site that provided the torrent"
   provider: String
   "Link to the torrent file"

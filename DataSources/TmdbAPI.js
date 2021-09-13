@@ -1,22 +1,32 @@
 const MyDataSource = require("./MyDataSource");
-
+var configs;
 class TmdbAPI extends MyDataSource {
   constructor(config) {
     super(config);
+    if (!configs) this.setConfig();
+  }
+  async setConfig() {
+    console.log("setting configs");
+    configs = await super.get({}, "configuration");
   }
   async getConfig() {
-    if (!this.config) return await super.get({}, "configuration");
-    return this.config;
+    return configs;
   }
   async get(params, endpoint) {
-    if (!this.config) await this.getConfig();
     var response = await super.get(params, endpoint);
     if (response.results) response.results = this._normalize(response.results);
     if (response.id) response = this._normalize(response);
     return response;
   }
   async getMediaById(id, media_type) {
-    return await this.get({}, `${media_type}/${id}`);
+    try {
+      return await this.get({}, `${media_type}/${id}`);
+    } catch (getMediaByIdError) {
+      console.log({
+        media_type,
+        mediaIdError: JSON.stringify(getMediaByIdError, false, 4),
+      });
+    }
   }
   async getMediaByIMDBID(imdb_id, media_type) {
     const response = await this.get(
@@ -24,7 +34,7 @@ class TmdbAPI extends MyDataSource {
       `find/${imdb_id}`
     );
     var results = response[`${media_type}_results`];
-    return await this.getMediaById(results[0].id);
+    return await this.getMediaById(results[0].id, media_type);
   }
   //Main Functions for getting Media Data
   async findByExternalID(external_source, external_id) {
@@ -48,7 +58,7 @@ class TmdbAPI extends MyDataSource {
     return await this.getMediaById(id, media_type);
   }
 
-  async searchMedia(query = "The Matrix", media_type = "movie", page = 1) {
+  async searchMedia(query, media_type, page = 1) {
     const response = await this.get({ query, page }, `search/${media_type}`);
     return await response;
   }
@@ -74,7 +84,6 @@ class TmdbAPI extends MyDataSource {
       dateSplit = result.first_air_date.split("-");
     else if (result.air_date) dateSplit = result.air_date.split("-");
     result.year = dateSplit[0] || null;
-    result.media_type = result.first_air_date ? "tv" : "movie";
     if (result.seasons) {
       result.seasons = result.seasons.map((season) => this._normalize(season));
     }

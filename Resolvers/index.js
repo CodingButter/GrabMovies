@@ -1,4 +1,4 @@
-const Media = require("./Media");
-const Query = require("./Query");
-const resolvers = { ...Media, ...Query };
+const Movie = require("./Movie");
+const Query = require("./Queries");
+const resolvers = { ...Movie, ...Query };
 module.exports = resolvers;

@@ -14,5 +14,5 @@ module.exports = `type Person {
     imdb_id: String
     homepage: String
     profiles: [Image]
-    latest: Media
+    latest: Movie
 }`;

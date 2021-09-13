@@ -1,16 +1,17 @@
 module.exports = `
-type MediaList {
+type MovieList {
     page: Int
-    results: [Media]
+    results: [Movie]
     total_results: Int
     total_pages: Int
+    media_type: String
   }
-  type Media {
+  type Movie {
     adult: Boolean
     backdrop: ImagePath
     belongs_to_collection: Collection
     budget: Int
-    genre: [Genre]
+    genres: [Genre]
     homepage: String
     id: Int
     imdb_id: String
@@ -33,7 +34,7 @@ type MediaList {
     video: Boolean
     vote_average: Float 
     vote_count: Int
-  
+    
     year: Int
     rated: String
     directors: [Person]
